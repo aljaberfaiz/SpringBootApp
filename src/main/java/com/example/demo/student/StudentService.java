@@ -1,12 +1,8 @@
 package com.example.demo.student;
 
-import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +28,14 @@ public class StudentService {
         }
 
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(Long studentId) {
+        boolean exists = studentRepository.existsById(studentId);
+        if(!exists){
+            throw new IllegalStateException(
+                    "student with ID " + studentId + "does not exit");
+        }
+        studentRepository.deleteById(studentId);
     }
 }
